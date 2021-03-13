@@ -49,3 +49,14 @@ class Component(object):
         component.config(self.position)
         component.pack()
 
+
+def FastWindows(content):
+    windows = Window()
+
+    @windows.set_up
+    def add_content(root):
+        label = Component(Label)
+        label.inner_config['text'] = content
+        label.pack(root)
+
+    return windows

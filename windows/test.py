@@ -1,4 +1,4 @@
-from . import FastWindows
+from .windows import FastWindows
 from threading import Thread
 from time import sleep
 

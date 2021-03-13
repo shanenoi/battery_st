@@ -22,3 +22,12 @@ class TestBattery(Battery):
     def test_percentage_now(self) -> None:
         assert self._energy_now()
 
+
+    def test_charging(self) -> None:
+        assert self.charging != None
+
+
+    def test_shortcut_access(self) -> None:
+        for key in self.shortcut_access.keys():
+            assert self.shortcut_access[key] != None
+

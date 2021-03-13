@@ -8,6 +8,11 @@ class Battery(object):
         self.SOURCE_FILE = DefaultConfig.SOURCE_FILE
         self.info = {}
         self.__load_content()
+        self.shortcut_access = {
+            '[battery]': self.percentage_now,
+            '[full]': self._enery_full(),
+            '[now]': self._energy_now()
+        }
 
 
     def __load_content(self) -> None:
@@ -34,6 +39,19 @@ class Battery(object):
         return self.info[self.__charging_status]
 
 
+    @property
+    def charging(self) -> bool:
+        _status = self._status()
+        __statuses__ = {
+                'Charging': True,
+                'Discharging': False
+        }
+        if _status in __statuses__.keys():
+            return __statuses__[_status]
+        else:
+            raise RuntimeError('could not found any status of battery!')
+
+
     def _enery_full(self) -> int:
         self.__power_supply_energy_full = DefaultConfig.POWER_FULL
         return self.info[self.__power_supply_energy_full]
@@ -44,6 +62,7 @@ class Battery(object):
         return self.info[self.__power_supply_energy_now]
 
 
+    @property
     def percentage_now(self) -> float:
         return self._energy_now() / self._enery_full()
 
